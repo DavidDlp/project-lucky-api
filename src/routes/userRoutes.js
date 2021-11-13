@@ -1,19 +1,26 @@
 const userRoutes = require("express").Router();
-const { isAuth } = require("../middleware/auth.middleware");
+const { isAuth , isRole  } = require("../middleware/auth.middleware");
 const {
   getAllUsers,
   logInUser,
   logOutUser,
   registerNewUser,
   delUserById,
+  updGlobalById,
+  updOneById
 } = require("../controllers/userController");
 
-userRoutes.get("/", getAllUsers);
-userRoutes.delete("/del/:id", delUserById);
+userRoutes.get("/",[isAuth/* , isRole('admin') */],getAllUsers);
+//isRole(['admin'])
+userRoutes.delete("/del/:id",delUserById);
+userRoutes.put("/put/:id", [isAuth],updGlobalById);
 
 
 userRoutes.post("/register", registerNewUser);
 userRoutes.post("/login", logInUser);
 userRoutes.post("/logout", [isAuth], logOutUser);
+
+userRoutes.patch("/patch/:id", [isAuth], updOneById);
+
 
 module.exports = userRoutes;

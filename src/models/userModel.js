@@ -3,23 +3,23 @@ const bcrypt = require('bcrypt')
 
 const userSchema = new mongoose.Schema(
     {
-       name:{type:String, trim:true, required:true},
-       surname:{type:String, trim:true, required:true},
-       DNI:{type:String, trim:true, require:true},
-       telephone:{type:String, trim:true, unique:true, required:true},
-
+       name:{type:String, trim:true },
+       surname:{type:String, trim:true },
+       DNI:{type:String, trim:true},
+       telephone:{type:String, trim:true, unique:true },
        street:{type:String, trim:true},
        city:{type:String, trim:true},
        pc:{type:String, trim:true},
 
        petsAdopted:[{type: mongoose.Types.ObjectId, ref: '??? form/pets'}],
        petsFavorite:[{type: mongoose.Types.ObjectId, ref: '??? pets'}],
-
-       imgHouse:[{type:String}],
-       tasa:[{type: mongoose.Types.ObjectId, ref: '??? form/adpt'}],
+       tasa:{type: mongoose.Types.ObjectId, ref: '??? form/adpt'},
+       imgHouse:[{type: mongoose.Types.ObjectId}],
        
        email:{type:String, trim:true, unique:true, required:true},
-       password:{type:String, trim:true, required:true}
+       password:{type:String, trim:true, required:true},
+
+       role:{type:String, trim:true}
     },
     {
         timestamps: true

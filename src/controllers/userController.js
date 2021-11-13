@@ -13,12 +13,42 @@ const getAllUsers = async (req, res, next) => {
 const delUserById = async (req,res,next) =>{
   try{
       await User.findByIdAndDelete(req.params.id)
-      return res.status(410).json('Deleted')
+      return res.status(410).json('User deleted')
   }catch(error){
       return next(error)
   }
 }; //ADMIN
+const updGlobalById = async (req,res,next) =>{
+  try{
+    const {id} = req.params
+    const {...children} = req.body
+    const update = await User.findByIdAndUpdate(id,{...children})
+    return res.status(201).json(update)
+  }catch(error){
+    return console.log(error)
+  }
+} //ADMIN
 
+
+const updOneById = async (req,res,next) =>{
+  try{
+    const {id} = req.params
+    const newUpdate = new User({
+      _id:req.params.id,
+      name:req.body.name,
+      surname:req.body.surname,
+      DNI:req.body.DNI,
+      telephone:req.body.telephone,
+      street:req.body.street,
+      city:req.body.city,
+      pc:req.body.pc
+    })
+    const updateProp = await User.findByIdAndUpdate({_id:id},newUpdate)
+    return res.status(201).json(updateProp) 
+  }catch(error){
+    return console.log(error)
+  }
+}//USER //ADMIN
 
 
 const registerNewUser = async (req, res, next) => {
@@ -72,5 +102,7 @@ module.exports = {
   registerNewUser,
   logInUser,
   logOutUser,
-  delUserById
+  delUserById,
+  updGlobalById,
+  updOneById
 };
