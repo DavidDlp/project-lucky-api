@@ -10,8 +10,8 @@ const {
   updOneById
 } = require("../controllers/userController");
 
-userRoutes.get("/",[isAuth/* , isRole('admin') */],getAllUsers);
-//isRole(['admin'])
+userRoutes.get("/", [isAuth, isRole(['admin'])],getAllUsers);
+
 userRoutes.delete("/del/:id",delUserById);
 userRoutes.put("/put/:id", [isAuth],updGlobalById);
 
