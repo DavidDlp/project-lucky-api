@@ -41,7 +41,8 @@ const updOneById = async (req,res,next) =>{
       telephone:req.body.telephone,
       street:req.body.street,
       city:req.body.city,
-      pc:req.body.pc
+      pc:req.body.pc,
+      imgAvatar:req.body.imgAvatar
     })
     const updateProp = await User.findByIdAndUpdate({_id:id},newUpdate)
     return res.status(201).json(updateProp) 

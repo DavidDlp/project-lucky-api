@@ -6,10 +6,11 @@ const userSchema = new mongoose.Schema(
        name:{type:String, trim:true },
        surname:{type:String, trim:true },
        DNI:{type:String, trim:true},
-       telephone:{type:String, trim:true, unique:true },
+       telephone:{type:String, trim:true},
        street:{type:String, trim:true},
        city:{type:String, trim:true},
        pc:{type:String, trim:true},
+       imgAvatar:{type:String},
 
        petsAdopted:[{type: mongoose.Types.ObjectId, ref: '??? form/pets'}],
        petsFavorite:[{type: mongoose.Types.ObjectId, ref: '??? pets'}],

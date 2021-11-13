@@ -27,7 +27,7 @@ const isAuth = async (req, res, next) => {
 
 const isRole = (permissions) => {
   return (req, res, next) => {
-    const userRole = req.user.role; //no se guarda en la variable
+    const userRole = req.user.role;
     if (permissions.includes(userRole)) {
       next();
     } else {
@@ -38,5 +38,5 @@ const isRole = (permissions) => {
 
 module.exports = {
   isAuth,
-  isRole
+  isRole,
 };
