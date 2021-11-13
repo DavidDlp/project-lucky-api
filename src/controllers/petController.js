@@ -3,7 +3,7 @@ const Pets = require('../models/pets.model')
 //GET
 const getAllPets = async (req,res,next) =>{
     try{
-        const pets = await Pets.find();
+        const pets = await Pets.find().populate('association');
         return res.status(200).json(pets);
 
     }catch(error){
@@ -56,7 +56,7 @@ const patchAssociationInPet = async (req, res, next) =>{
     try{
         const {id} = req.params;
         const idAssociation = req.body.idAssociation;
-        const updatePetWithAsssociation = await Pets.findByIdAndUpdate(id,{$push:{movies:idAssociation}});
+        const updatePetWithAsssociation = await Pets.findByIdAndUpdate(id,{$push:{association:idAssociation}});
         return res.status(200).json(updatePetWithAsssociation)
 
     }catch(error){

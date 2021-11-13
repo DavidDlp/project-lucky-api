@@ -10,18 +10,18 @@ const {
         
 //GET
 petsRoutes.get('/', getAllPets);
-petsRoutes.get('/', getPetById);
-petsRoutes.get('/', getPetBySpecies);
+petsRoutes.get('/:id', getPetById);
+petsRoutes.get('/species/:species', getPetBySpecies);
 
 //POST
 petsRoutes.post('/', postPet);
 
 //PUT y/o PATCH
-petsRoutes.put('/', putPet);
+petsRoutes.put('/:id', putPet);
 
-petsRoutes.patch('/', patchAssociationInPet);
+petsRoutes.patch('/newassociation/:id', patchAssociationInPet);
 
 //DELETE
-petsRoutes.delete('/', deletePet)
+petsRoutes.delete('/:id', deletePet)
 
 module.exports = petsRoutes
