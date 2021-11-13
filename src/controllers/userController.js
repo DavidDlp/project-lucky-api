@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 
 const getAllUsers = async (req, res, next) => {
   try {
-    const users = await User.find();
+    const users = await User.find().populate('petsFavorite');
     return res.status(200).json(users);
   } catch (error) {
     return next(error);
@@ -30,6 +30,17 @@ const updGlobalById = async (req,res,next) =>{
 } //ADMIN
 
 
+const patchFavoritePets = async (req,res,next) =>{
+  try{
+    const {id} = req.params;
+    const idPet = req.body.idPet;
+    const updateUserWithPet = await User.findByIdAndUpdate(id,{$push:{petsFavorite:idPet}})
+    return res.status(200).json(updateUserWithPet)
+  }catch(error){
+    return next(error)
+  }
+}
+
 const updOneById = async (req,res,next) =>{
   try{
     const {id} = req.params
@@ -47,7 +58,7 @@ const updOneById = async (req,res,next) =>{
     const updateProp = await User.findByIdAndUpdate({_id:id},newUpdate)
     return res.status(201).json(updateProp) 
   }catch(error){
-    return console.log(error)
+    return next(error)
   }
 }//USER //ADMIN
 
@@ -105,5 +116,6 @@ module.exports = {
   logOutUser,
   delUserById,
   updGlobalById,
-  updOneById
+  updOneById,
+  patchFavoritePets
 };

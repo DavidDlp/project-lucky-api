@@ -8,7 +8,8 @@ const {
   registerNewUser,
   delUserById,
   updGlobalById,
-  updOneById
+  updOneById,
+  patchFavoritePets
 } = require("../controllers/userController");
 
 userRoutes.get("/get/all", [isAuth, isRole(['admin'])],getAllUsers);
@@ -20,6 +21,7 @@ userRoutes.post("/login", logInUser);
 userRoutes.post("/logout", [isAuth], logOutUser);
 
 userRoutes.patch("/patch/:id", [isAuth, upload.single('imgAvatar')], updOneById);
+userRoutes.patch("/newfavorite/:id", patchFavoritePets )
 
 
 module.exports = userRoutes;
