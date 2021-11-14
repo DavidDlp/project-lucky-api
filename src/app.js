@@ -7,6 +7,7 @@ const cors = require("cors");
 
 const petsRoutes = require('./routes/petsRoutes')
 const userRoutes = require("./routes/userRoutes");
+const associationRoutes = require("./routes/association.routes")
 
 const app = express();
 
@@ -27,8 +28,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // ROUTES
-app.use('/pets', petsRoutes);
 app.use("/user", userRoutes);
+app.use('/associations', associationRoutes);
+app.use('/pets', petsRoutes);
+
 
 app.use("*", (req, res, next) => {
     const error = new Error();
