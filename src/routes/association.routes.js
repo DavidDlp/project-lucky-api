@@ -10,6 +10,7 @@ const {
     postNewAssociation,
     putAssociation,
     deleteAssociation,
+    patchPetInAssociation,
 }= require ("../controllers/association.controllers")
 
 const Association =require("../models/association.model")
@@ -17,7 +18,8 @@ const Association =require("../models/association.model")
 associationRoutes.get('/', getAllAssociation)
 associationRoutes.get('/:id', getAssociationById)
 associationRoutes.post('/', postNewAssociation)
-associationRoutes.put('/id', putAssociation)
+associationRoutes.put('/:id', putAssociation)
+associationRoutes.patch('/newpet/:id', patchPetInAssociation)
 associationRoutes.delete('/:id', deleteAssociation)
 
 

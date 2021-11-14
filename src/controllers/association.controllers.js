@@ -1,10 +1,9 @@
 const Association =require('../models/association.model');
 
-
 /*GET*/
 const getAllAssociation = async (req, res, next) => {
     try {
-       const allAssociations = await Association.find();
+       const allAssociations = await Association.find().populate('pets');
        return res.status(200).json(allAssociations); 
     } catch (error) {
         return next(error);
@@ -52,6 +51,18 @@ const putAssociation = async (req, res, next) => {
       return next(error);
     }
   };
+  /*PATCH*/
+  const patchPetInAssociation = async (req, res, next) =>{
+    try{
+        const {id} = req.params;
+        const idPet = req.body.idPet;
+        const updateAssociationWithPets = await Association.findByIdAndUpdate(id,{$push:{pets:idPet}});
+        return res.status(200).json(updateAssociationWithPets)
+
+    }catch(error){
+        return next(error)
+    }
+};
   
   /*DELETE */
 const deleteAssociation = async (req, res, next) => {
@@ -70,6 +81,7 @@ module.exports ={
     postNewAssociation,
     putAssociation,
     deleteAssociation,
+    patchPetInAssociation
 };
 
 
