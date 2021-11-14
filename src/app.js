@@ -2,8 +2,8 @@ const express = require ('express')
 const mongoose = require ('mongoose')
 const cloudinary = require("cloudinary").v2;
 const morgan = require('morgan');
-require('dotenv').config();
 const cors = require("cors");
+require('dotenv').config();
 
 const petsRoutes = require('./routes/petsRoutes')
 const userRoutes = require("./routes/userRoutes");

@@ -14,7 +14,7 @@ const userSchema = new mongoose.Schema(
 
        petsAdopted:[{type: mongoose.Types.ObjectId, ref: '??? form/pets'}],
        petsFavorite:[{type: mongoose.Types.ObjectId, ref: 'pets'}],
-       tasa:{type: mongoose.Types.ObjectId, ref: '??? form/adpt'},
+       /* tasa:{type: mongoose.Types.ObjectId, ref: '??? form/adpt'}, */
        imgHouse:[{type: mongoose.Types.ObjectId, ref: '??? form'}],
        
        email:{type:String, trim:true, unique:true, required:true},

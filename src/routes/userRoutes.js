@@ -7,14 +7,14 @@ const {
   logOutUser,
   registerNewUser,
   delUserById,
-  updGlobalById,
+  putUsersById,
   updOneById,
   patchFavoritePets
 } = require("../controllers/userController");
 
 userRoutes.get("/get/all", [isAuth, isRole(['admin'])],getAllUsers);
 userRoutes.delete("/del/:id", [isAuth, isRole(['admin'])],delUserById);
-userRoutes.put("/put/:id", [isAuth, isRole(['admin'])],updGlobalById);
+userRoutes.put("/put/:id", [isAuth, isRole(['admin'])],putUsersById);
 
 userRoutes.post("/register", registerNewUser);
 userRoutes.post("/login", logInUser);

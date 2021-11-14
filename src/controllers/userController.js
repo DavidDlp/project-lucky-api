@@ -18,7 +18,7 @@ const delUserById = async (req,res,next) =>{
       return next(error)
   }
 }; //ADMIN
-const updGlobalById = async (req,res,next) =>{
+const putUsersById = async (req,res,next) =>{
   try{
     const {id} = req.params
     const {...children} = req.body
@@ -40,7 +40,6 @@ const patchFavoritePets = async (req,res,next) =>{
     return next(error)
   }
 }
-
 const updOneById = async (req,res,next) =>{
   try{
     const {id} = req.params
@@ -79,7 +78,7 @@ const logInUser = async (req, res, next) => {
     if (!userInBd) {
       const error = new Error();
       error.status = 404;
-      error.message = "No existe usuario con ese email";
+      error.message = "wrong email";
       return next(error);
     }
 
@@ -95,7 +94,7 @@ const logInUser = async (req, res, next) => {
       return res.status(200).json(token);
     }
   } catch (error) {
-    error.message = "error al loguear";
+    error.message = "error at logging";
     return next(error);
   }
 };//USER //ADMIN
@@ -115,7 +114,7 @@ module.exports = {
   logInUser,
   logOutUser,
   delUserById,
-  updGlobalById,
+  putUsersById,
   updOneById,
   patchFavoritePets
 };
