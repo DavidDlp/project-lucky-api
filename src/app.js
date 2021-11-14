@@ -7,6 +7,7 @@ require('dotenv').config();
 
 const petsRoutes = require('./routes/petsRoutes')
 const userRoutes = require("./routes/userRoutes");
+const associationRoutes = require("./routes/association.routes")
 
 const app = express();
 
@@ -27,8 +28,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // ROUTES
-app.use('/pets', petsRoutes);
 app.use("/user", userRoutes);
+app.use('/associations', associationRoutes);
+app.use('/pets', petsRoutes);
+
 
 app.use("*", (req, res, next) => {
     const error = new Error();
@@ -44,9 +47,7 @@ app.use((error, req, res, next) => {
     .json(error.message || "Unexpected error");
 });
 
-
 app.disable('x-powered-by');
-
 
 //CONECT DB
 const PORT = 3000;
