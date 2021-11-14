@@ -30,17 +30,6 @@ const putUsersById = async (req,res,next) =>{
   }
 } //ADMIN
 
-const patchFavoritePets = async (req,res,next) =>{
-  try{
-    const {id} = req.params;
-    const idPet = req.body.idPet;
-    const updateUserWithPet = await User.findByIdAndUpdate(id,{$push:{petsFavorite:idPet}})
-    return res.status(200).json(updateUserWithPet)
-
-  }catch(error){
-    return next(error)
-  }
-}
 
 const patchFavoritePets = async (req,res,next) =>{
   try{
@@ -126,11 +115,7 @@ module.exports = {
   logInUser,
   logOutUser,
   delUserById,
-<<<<<<< HEAD
   putUsersById,
-=======
-  updGlobalById,
->>>>>>> test-before-master
   updOneById,
   patchFavoritePets
 };
