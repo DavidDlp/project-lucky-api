@@ -43,6 +43,7 @@ const patchFavoritePets = async (req,res,next) =>{
 }
 const updOneById = async (req,res,next) =>{
   try{
+    const {path} = req.file
     const {id} = req.params
     const newUpdate = new User({
       _id:req.params.id,
@@ -53,7 +54,7 @@ const updOneById = async (req,res,next) =>{
       street:req.body.street,
       city:req.body.city,
       pc:req.body.pc,
-      imgAvatar:req.body.imgAvatar
+      imgAvatar:path
     })
     const updateProp = await User.findByIdAndUpdate({_id:id},newUpdate)
     return res.status(201).json(updateProp) 
