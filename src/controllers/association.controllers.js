@@ -1,5 +1,4 @@
 const Association =require('../models/association.model');
-const associationRoutes = require ('../routes/association.routes');
 
 
 /*GET*/
@@ -46,8 +45,8 @@ const putAssociation = async (req, res, next) => {
     try {
       const { id } = req.params;
       const AssociationModify = new Association(req.body);
-      AssociationModify.id = id;
-      const associationUpdated = await Association.findOneAndUpdate(id, AssociationModify);
+      AssociationModify._id = id;
+      const associationUpdated = await Association.findByIdAndUpdate(id, AssociationModify);
       return res.status(200).json(associationUpdated);
     } catch (error) {
       return next(error);
