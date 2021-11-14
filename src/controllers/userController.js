@@ -19,7 +19,7 @@ const delUserById = async (req,res,next) =>{
       return next(error)
   }
 }; //ADMIN
-const updGlobalById = async (req,res,next) =>{
+const putUsersById = async (req,res,next) =>{
   try{
     const {id} = req.params
     const {...children} = req.body
@@ -30,18 +30,17 @@ const updGlobalById = async (req,res,next) =>{
   }
 } //ADMIN
 
+
 const patchFavoritePets = async (req,res,next) =>{
   try{
     const {id} = req.params;
     const idPet = req.body.idPet;
     const updateUserWithPet = await User.findByIdAndUpdate(id,{$push:{petsFavorite:idPet}})
     return res.status(200).json(updateUserWithPet)
-
   }catch(error){
     return next(error)
   }
 }
-
 const updOneById = async (req,res,next) =>{
   try{
     const {id} = req.params
@@ -59,7 +58,7 @@ const updOneById = async (req,res,next) =>{
     const updateProp = await User.findByIdAndUpdate({_id:id},newUpdate)
     return res.status(201).json(updateProp) 
   }catch(error){
-    return console.log(error)
+    return next(error)
   }
 }//USER //ADMIN
 
@@ -80,7 +79,7 @@ const logInUser = async (req, res, next) => {
     if (!userInBd) {
       const error = new Error();
       error.status = 404;
-      error.message = "No existe usuario con ese email";
+      error.message = "wrong email";
       return next(error);
     }
 
@@ -96,7 +95,7 @@ const logInUser = async (req, res, next) => {
       return res.status(200).json(token);
     }
   } catch (error) {
-    error.message = "error al loguear";
+    error.message = "error at logging";
     return next(error);
   }
 };//USER //ADMIN
@@ -116,7 +115,7 @@ module.exports = {
   logInUser,
   logOutUser,
   delUserById,
-  updGlobalById,
+  putUsersById,
   updOneById,
   patchFavoritePets
 };

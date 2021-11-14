@@ -12,8 +12,9 @@ const userSchema = new mongoose.Schema(
        pc:{type:String, trim:true},
        imgAvatar:{type:String},
 
-       petsAdopted:[{type: mongoose.Types.ObjectId, ref: ''}],
+       petsAdopted:[{type: mongoose.Types.ObjectId, ref: '??? form/pets'}],
        petsFavorite:[{type: mongoose.Types.ObjectId, ref: 'pets'}],
+       /* tasa:{type: mongoose.Types.ObjectId, ref: '??? form/adpt'}, */
        imgHouse:[{type: mongoose.Types.ObjectId, ref: '??? form'}],
        
        email:{type:String, trim:true, unique:true, required:true},
