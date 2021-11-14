@@ -47,9 +47,7 @@ app.use((error, req, res, next) => {
     .json(error.message || "Unexpected error");
 });
 
-
 app.disable('x-powered-by');
-
 
 //CONECT DB
 const PORT = 3000;
