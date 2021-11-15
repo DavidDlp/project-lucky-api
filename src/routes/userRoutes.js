@@ -16,7 +16,7 @@ userRoutes.get("/admin/", [isAuth, isRole(['admin'])],getAllUsers);
 userRoutes.delete("/admin/:id", [isAuth, isRole(['admin'])],delUserById);
 userRoutes.put("/admin/:id", [isAuth, isRole(['admin'])],putUsersById);
 
-userRoutes.post("/register",registerNewUser);
+userRoutes.post("/register",upload.single('imgAvatar'), registerNewUser);
 userRoutes.post("/login", logInUser);
 userRoutes.post("/logout", [isAuth], logOutUser);
 

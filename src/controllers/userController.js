@@ -68,6 +68,9 @@ const registerNewUser = async (req, res, next) => {
   try {
     const newUser = new User(req.body);
     newUser.role = 'user'
+    newUser.imgAvatar = req.file.path
+    /* console.log("imgAvatar ->", newUser.imgAvatar)
+    console.log( "path ->", req.file.path) */
     const userInBd = await newUser.save();
     return res.status(201).json(userInBd);
   } catch (error) {
