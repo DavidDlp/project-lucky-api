@@ -33,6 +33,7 @@ const getPetBySpecies = async (req,res,next) =>{
 const postPet = async (req, res, next) =>{
     try{
         const newPet = new Pets(req.body);
+        newPet.imgPets = req.file.path
         const newPetInBd = await newPet.save();
         return res.status(201).json(newPetInBd)
     }catch(error){
