@@ -40,8 +40,8 @@ const patchFavoritePets = async (req,res,next) =>{
   }catch(error){
     return next(error)
   }
-}
-const updOneById = async (req,res,next) =>{
+}//USER //ADMIN
+const patchUserById = async (req,res,next) =>{
   try{
     const {path} = req.file
     const {id} = req.params
@@ -67,6 +67,7 @@ const updOneById = async (req,res,next) =>{
 const registerNewUser = async (req, res, next) => {
   try {
     const newUser = new User(req.body);
+    newUser.role = 'user'
     const userInBd = await newUser.save();
     return res.status(201).json(userInBd);
   } catch (error) {
@@ -90,7 +91,7 @@ const logInUser = async (req, res, next) => {
       const token = jwt.sign(
         { id: userInBd._id, email: userInBd.email },
         process.env.JWT_SECRET,
-        { expiresIn: "1d" }
+        { expiresIn: "1h" }
       );
 
       return res.status(200).json(token);
@@ -108,7 +109,7 @@ const logOutUser = (req, res, next) => {
   } catch (error) {
     return next(error);
   }
-};//USER //ADMIN
+};//USER //ADMIN // es necesaria?
 
 module.exports = {
   getAllUsers,
@@ -117,6 +118,6 @@ module.exports = {
   logOutUser,
   delUserById,
   putUsersById,
-  updOneById,
+  patchUserById,
   patchFavoritePets
 };

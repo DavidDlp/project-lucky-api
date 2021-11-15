@@ -8,20 +8,20 @@ const {
   registerNewUser,
   delUserById,
   putUsersById,
-  updOneById,
+  patchUserById,
   patchFavoritePets
 } = require("../controllers/userController");
 
-userRoutes.get("/get/all", [isAuth, isRole(['admin'])],getAllUsers);
-userRoutes.delete("/del/:id", [isAuth, isRole(['admin'])],delUserById);
-userRoutes.put("/put/:id", [isAuth, isRole(['admin'])],putUsersById);
+userRoutes.get("/admin/", [isAuth, isRole(['admin'])],getAllUsers);
+userRoutes.delete("/admin/:id", [isAuth, isRole(['admin'])],delUserById);
+userRoutes.put("/admin/:id", [isAuth, isRole(['admin'])],putUsersById);
 
-userRoutes.post("/register", registerNewUser);
+userRoutes.post("/register",registerNewUser);
 userRoutes.post("/login", logInUser);
 userRoutes.post("/logout", [isAuth], logOutUser);
 
-userRoutes.patch("/patch/:id", [isAuth, upload.single('imgAvatar')], updOneById);
-userRoutes.patch("/newfavorite/:id", patchFavoritePets )
+userRoutes.patch("/patch/:id", [isAuth, upload.single('imgAvatar'), isRole(['user','admin'])], patchUserById);
+userRoutes.patch("/newfavpet/:id", [isAuth, isRole(['user','admin'])], patchFavoritePets );
 
 
 module.exports = userRoutes;
