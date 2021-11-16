@@ -9,6 +9,7 @@ const petsRoutes = require('./routes/petsRoutes')
 const userRoutes = require("./routes/userRoutes");
 const associationRoutes = require("./routes/association.routes")
 
+const PORT = process.env.PORT;
 const app = express();
 
 cloudinary.config({
@@ -50,7 +51,7 @@ app.use((error, req, res, next) => {
 app.disable('x-powered-by');
 
 //CONECT DB
-const PORT = 3000;
+
 mongoose
   .connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
