@@ -1,7 +1,8 @@
 const express = require('express');
 const petsRoutes = express.Router();
+const upload = require('../middleware/file.middleware')
 const {
-     postPet, getAllPets, putPet, patchAssociationInPet, deletePet, getPetById, getPetBySpecies,
+     postPet, getAllPets, putPet, patchAssociationInPet, deletePet, getPetById, getPetBySpecies, getPetByCity, getPetByGender,
     } = require('../controllers/petController');
 
 // petsRoutes.get('/',(req,res) =>{
@@ -12,9 +13,11 @@ const {
 petsRoutes.get('/', getAllPets);
 petsRoutes.get('/:id', getPetById);
 petsRoutes.get('/species/:species', getPetBySpecies);
+petsRoutes.get('/gender/:gender', getPetByGender);
+petsRoutes.get('/city/:city', getPetByCity);
 
 //POST
-petsRoutes.post('/', postPet);
+petsRoutes.post('/', upload.single('imgPets'), postPet);
 
 //PUT y/o PATCH
 petsRoutes.put('/:id', putPet);

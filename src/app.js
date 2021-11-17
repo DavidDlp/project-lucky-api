@@ -10,8 +10,8 @@ const userRoutes = require("./routes/userRoutes");
 const associationRoutes = require("./routes/association.routes")
 
 const app = express();
-
 const PORT = process.env.PORT;
+
 cloudinary.config({
     cloud_name: process.env.CLOUD_NAME,
     api_key: process.env.API_KEY,

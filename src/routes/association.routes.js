@@ -13,8 +13,6 @@ const {
     patchPetInAssociation,
 }= require ("../controllers/association.controllers")
 
-const Association =require("../models/association.model")
-
 associationRoutes.get('/', getAllAssociation)
 associationRoutes.get('/:id', getAssociationById)
 associationRoutes.post('/', postNewAssociation)

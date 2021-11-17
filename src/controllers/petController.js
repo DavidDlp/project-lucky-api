@@ -29,10 +29,29 @@ const getPetBySpecies = async (req,res,next) =>{
         return next(error)
     }
 }
+const getPetByCity = async (req,res,next) =>{
+    try{
+        const {city} = req.params;
+        const findCity = await Pets.find({city});
+        return res.status(200).json(findCity)
+    }catch(error){
+        return next(error)
+    }
+}
+const getPetByGender = async (req,res,next) =>{
+    try{
+        const {gender} = req.params;
+        const findGender = await Pets.find({gender});
+        return res.status(200).json(findGender)
+    }catch(error){
+        return next(error)
+    }
+}
 //POST
 const postPet = async (req, res, next) =>{
     try{
         const newPet = new Pets(req.body);
+        newPet.imgPets = req.file.path
         const newPetInBd = await newPet.save();
         return res.status(201).json(newPetInBd)
     }catch(error){
@@ -79,6 +98,8 @@ module.exports = {
     getAllPets,
     getPetById,
     getPetBySpecies,
+    getPetByGender,
+    getPetByCity,
     postPet,
     putPet,
     patchAssociationInPet,

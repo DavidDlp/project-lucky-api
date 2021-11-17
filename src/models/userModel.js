@@ -16,8 +16,8 @@ const userSchema = new mongoose.Schema(
        petsFavorite:[{type: mongoose.Types.ObjectId, ref: 'pets'}],
        imgHouse:[{type: mongoose.Types.ObjectId, ref: '??? form'}],
        
-       email:{type:String, trim:true, unique:true, required:true},
-       password:{type:String, trim:true, required:true},
+       email:{type:String, trim:true, unique:true, required:true },
+       password:{type:String, trim:true, required:true },
 
        role:{type:String, trim:true,  enum:["user","admin"], default:"user"}
     },
