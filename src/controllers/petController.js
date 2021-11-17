@@ -1,4 +1,5 @@
 const Pets = require('../models/pets.model')
+const Association = require('../models/association.model')
 
 //GET
 const getAllPets = async (req,res,next) =>{
@@ -14,7 +15,7 @@ const getAllPets = async (req,res,next) =>{
 const getPetById = async (req,res,next) =>{
     try{
         const {id} = req.params;
-        const findPet = await Pets.findById(id);
+        const findPet = await Pets.findById(id).populate('association');
         return res.status(200).json(findPet);
     }catch(error){
         return next(error)
@@ -23,7 +24,7 @@ const getPetById = async (req,res,next) =>{
 const getPetBySpecies = async (req,res,next) =>{
     try{
         const {species} = req.params;
-        const findSpecies = await Pets.find({species});
+        const findSpecies = await Pets.find({species}).populate('association');
         return res.status(200).json(findSpecies)
     }catch(error){
         return next(error)
@@ -32,7 +33,7 @@ const getPetBySpecies = async (req,res,next) =>{
 const getPetByCity = async (req,res,next) =>{
     try{
         const {city} = req.params;
-        const findCity = await Pets.find({city});
+        const findCity = await Pets.find({city}).populate('association');
         return res.status(200).json(findCity)
     }catch(error){
         return next(error)
@@ -41,7 +42,7 @@ const getPetByCity = async (req,res,next) =>{
 const getPetByGender = async (req,res,next) =>{
     try{
         const {gender} = req.params;
-        const findGender = await Pets.find({gender});
+        const findGender = await Pets.find({gender}).populate('association');
         return res.status(200).json(findGender)
     }catch(error){
         return next(error)
@@ -51,8 +52,11 @@ const getPetByGender = async (req,res,next) =>{
 const postPet = async (req, res, next) =>{
     try{
         const newPet = new Pets(req.body);
-        newPet.imgPets = req.file.path
+        if (req.file){newPet.imgPets = req.file.path} 
         const newPetInBd = await newPet.save();
+        const patchassociations = await Association.findByIdAndUpdate("6190ac96164632f19073a13b",{$push:{pets:newPetInBd._id}})
+        await Pets.findByIdAndUpdate(newPetInBd._id,{$push:{association:"6190ac96164632f19073a13b"}}); 
+        // req.association._id 
         return res.status(201).json(newPetInBd)
     }catch(error){
         return next(error)

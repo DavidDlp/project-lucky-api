@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
+const Association =require('../models/association.model');
 
 const isAuth = async (req, res, next) => {
   try {
@@ -16,8 +17,11 @@ const isAuth = async (req, res, next) => {
     const validToken = jwt.verify(parsedToken, process.env.JWT_SECRET);
 
     const userLogued = await User.findById(validToken.id);
+    const associationLogued = await Association.findById(validToken.id);
     userLogued.password = null;
+    associationLogued.password = null;
     req.user = userLogued;
+    req.association = associationLogued;
 
     next();
   } catch (error) {
