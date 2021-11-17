@@ -90,6 +90,7 @@ const logInUser = async (req, res, next) => {
 
     if (bcrypt.compareSync(req.body.password, userInBd.password)) {
       userInBd.password = null;
+      userInBd.password = "";
 
       const token = jwt.sign(
         { id: userInBd._id, email: userInBd.email },
@@ -97,7 +98,7 @@ const logInUser = async (req, res, next) => {
         { expiresIn: "1h" }
       );
 
-      return res.status(200).json(token);
+      return res.status(200).json({token, userInBd});
     }
   } catch (error) {
     error.message = "error at logging";
