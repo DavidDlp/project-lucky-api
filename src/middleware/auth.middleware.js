@@ -18,8 +18,8 @@ const isAuth = async (req, res, next) => {
 
     const userLogued = await User.findById(validToken.id);
     const associationLogued = await Association.findById(validToken.id);
-    userLogued.password = null;
-    associationLogued.password = null;
+    /* userLogued.password = null;
+    associationLogued.password = null; */
     req.user = userLogued;
     req.association = associationLogued;
 
@@ -31,7 +31,7 @@ const isAuth = async (req, res, next) => {
 
 const isRole = (permissions) => {
   return (req, res, next) => {
-    const userRole = req.user.role;
+    const userRole = req.association.role;
     if (permissions.includes(userRole)) {
       next();
     } else {
