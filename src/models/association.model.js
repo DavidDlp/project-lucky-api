@@ -8,6 +8,7 @@ const associationSchema = new mongoose.Schema(
     city:{type:String, require:true},
     phone:{type:String, require:true},
     pets:[{type:mongoose.Types.ObjectId, ref:'pets'}],
+    imgLogo:{type:String},
 
     email:{type:String, trim:true, unique:true, required:true},
     password:{type:String, trim:true, required:true},
