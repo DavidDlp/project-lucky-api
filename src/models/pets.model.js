@@ -10,7 +10,7 @@ const petSchema = new mongoose.Schema(
         imgPets:{type:String,},
         size: {type:Number, trim:true},
         weight: {type:Number, trim:true},
-        personality: {type:String, trim:true},
+        personality: [{type:String, trim:true}],
         history: {type:String, trim:true},
         association: {type:mongoose.Types.ObjectId, ref:'associations'},
         record: {
