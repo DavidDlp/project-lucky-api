@@ -54,9 +54,9 @@ const postPet = async (req, res, next) =>{
         const newPet = new Pets(req.body);
         if (req.file){newPet.imgPets = req.file.path} 
         const newPetInBd = await newPet.save();
-        const patchassociations = await Association.findByIdAndUpdate("6190ac96164632f19073a13b",{$push:{pets:newPetInBd._id}})
-        await Pets.findByIdAndUpdate(newPetInBd._id,{$push:{association:"6190ac96164632f19073a13b"}}); 
-        // req.association._id 
+        const patchassociations = await Association.findByIdAndUpdate(req.association._id ,{$push:{pets:newPetInBd._id}})
+        await Pets.findByIdAndUpdate(newPetInBd._id,{$push:{association: req.association._id }}); 
+
         return res.status(201).json(newPetInBd)
     }catch(error){
         return next(error)

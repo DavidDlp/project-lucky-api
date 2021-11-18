@@ -27,14 +27,15 @@ const getAssociationById = async (req, res, next) => {
 const postNewAssociation = async (req, res, next) => {
     try {
       const newAssociation = new Association(req.body);
-      // newAssociation.role = 'association'
+      newAssociation.role = 'association'
+      if(req.file){newAssociation.imgLogo = req.file.path}
       const newAssociationInBd = await newAssociation.save();
       return res.status(201).json(newAssociationInBd);
     } catch (error) {
       return next(error);
     }
   };
-  const logInAssociation = async (req, res, next) => {
+const logInAssociation = async (req, res, next) => {
     try {
       const associationInBd = await Association.findOne({ email: req.body.email });
       if (!associationInBd) {
@@ -46,6 +47,7 @@ const postNewAssociation = async (req, res, next) => {
   
       if (bcrypt.compareSync(req.body.password, associationInBd.password)) {
         associationInBd.password = null;
+        associationInBd.password = "";
   
         const token = jwt.sign(
           { id: associationInBd._id, email: associationInBd.email },
@@ -53,7 +55,8 @@ const postNewAssociation = async (req, res, next) => {
           { expiresIn: "1h" }
         );
   
-        return res.status(200).json(token);
+        return res.status(200).json({token, associationInBd});
+
       }
     } catch (error) {
       error.message = "error at logging";
@@ -61,7 +64,7 @@ const postNewAssociation = async (req, res, next) => {
     }
   };
   
-  const logOutAssociation = (req, res, next) => {
+const logOutAssociation = (req, res, next) => {
     try {
       const token = null;
       return res.status(200).json(token);

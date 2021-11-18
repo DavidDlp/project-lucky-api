@@ -1,6 +1,7 @@
-const express = require("express")
 const associationRoutes = require('express').Router()
-const { isAuth } = require("../middleware/auth.middleware");
+const { isAuth, isRole } = require("../middleware/auth.middleware");
+const upload = require('../middleware/file.middleware')
+
 const {
     getAllAssociation,
     getAssociationById,
@@ -12,10 +13,10 @@ const {
     logOutAssociation
 }= require ("../controllers/association.controllers")
 
-associationRoutes.get('/', getAllAssociation)
-associationRoutes.get('/:id', getAssociationById)
+associationRoutes.get('/',[isAuth], getAllAssociation)
+associationRoutes.get('/:id',[isAuth], getAssociationById)
 
-associationRoutes.post("/register",postNewAssociation);
+associationRoutes.post("/register",upload.single("imgLogo"),postNewAssociation);
 associationRoutes.post("/login", logInAssociation);
 associationRoutes.post("/logout", [isAuth], logOutAssociation);
 
