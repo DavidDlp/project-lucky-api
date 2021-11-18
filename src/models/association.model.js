@@ -9,6 +9,7 @@ const associationSchema = new mongoose.Schema(
     phone:{type:String, require:true},
     pets:[{type:mongoose.Types.ObjectId, ref:'pets'}],
     imgLogo:{type:String},
+    role:{type:String,trim:true,  enum:["association","admin"], default:"association"},
 
     email:{type:String, trim:true, unique:true, required:true},
     password:{type:String, trim:true, required:true},

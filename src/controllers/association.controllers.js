@@ -27,7 +27,7 @@ const getAssociationById = async (req, res, next) => {
 const postNewAssociation = async (req, res, next) => {
     try {
       const newAssociation = new Association(req.body);
-      // newAssociation.role = 'association'
+      newAssociation.role = 'association'
       if(req.file){newAssociation.imgLogo = req.file.path}
       const newAssociationInBd = await newAssociation.save();
       return res.status(201).json(newAssociationInBd);
