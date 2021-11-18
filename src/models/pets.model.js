@@ -8,9 +8,9 @@ const petSchema = new mongoose.Schema(
         birthday: {type:String,  trim:true},
         city: {type:String,  trim:true},
         imgPets:{type:String,},
-        size: {type:Number, trim:true},
+        size: {type:String, trim:true},
         weight: {type:Number, trim:true},
-        personality: {type:String, trim:true},
+        personality: [{type:String, trim:true}],
         history: {type:String, trim:true},
         association: {type:mongoose.Types.ObjectId, ref:'associations'},
         record: {
