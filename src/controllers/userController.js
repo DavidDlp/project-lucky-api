@@ -68,6 +68,9 @@ const registerNewUser = async (req, res, next) => {
   try {
     const newUser = new User(req.body);
     newUser.role = 'user'
+    if(req.file){newUser.imgAvatar = req.file.path}
+    /* console.log("imgAvatar ->", newUser.imgAvatar)
+    console.log( "path ->", req.file.path) */
     const userInBd = await newUser.save();
     return res.status(201).json(userInBd);
   } catch (error) {
@@ -87,6 +90,7 @@ const logInUser = async (req, res, next) => {
 
     if (bcrypt.compareSync(req.body.password, userInBd.password)) {
       userInBd.password = null;
+      userInBd.password = "";
 
       const token = jwt.sign(
         { id: userInBd._id, email: userInBd.email },
@@ -94,7 +98,7 @@ const logInUser = async (req, res, next) => {
         { expiresIn: "1h" }
       );
 
-      return res.status(200).json(token);
+      return res.status(200).json({token, userInBd});
     }
   } catch (error) {
     error.message = "error at logging";
