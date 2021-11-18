@@ -11,21 +11,21 @@ const { isAuth } = require('../middleware/auth.middleware');
     // });
         
 //GET
-petsRoutes.get('/',[isAuth], getAllPets);
-petsRoutes.get('/:id',[isAuth], getPetById);
-petsRoutes.get('/species/:species',[isAuth], getPetBySpecies);
-petsRoutes.get('/gender/:gender',[isAuth], getPetByGender);
-petsRoutes.get('/city/:city',[isAuth], getPetByCity);
+petsRoutes.get('/', getAllPets);
+petsRoutes.get('/:id', getPetById);
+petsRoutes.get('/species/:species', getPetBySpecies);
+petsRoutes.get('/gender/:gender', getPetByGender);
+petsRoutes.get('/city/:city', getPetByCity);
 
 //POST
-petsRoutes.post('/', [isAuth, upload.single('imgPets')], postPet);
+petsRoutes.post('/', [upload.single('imgPets')], postPet);
 
 //PUT y/o PATCH
-petsRoutes.put('/:id',[isAuth], putPet);
+petsRoutes.put('/:id', putPet);
 
-petsRoutes.patch('/newassociation/:id',[isAuth], patchAssociationInPet);
+petsRoutes.patch('/newassociation/:id', patchAssociationInPet);
 
 //DELETE
-petsRoutes.delete('/:id',[isAuth], deletePet)
+petsRoutes.delete('/:id', deletePet)
 
 module.exports = petsRoutes

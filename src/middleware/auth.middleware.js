@@ -18,8 +18,8 @@ const isAuth = async (req, res, next) => {
 
     const userLogued = await User.findById(validToken.id);
     const associationLogued = await Association.findById(validToken.id);
-    userLogued.password = null;
-    associationLogued.password = null;
+    /* userLogued.password = null;
+    associationLogued.password = null; */
     req.user = userLogued;
     req.association = associationLogued;
 
