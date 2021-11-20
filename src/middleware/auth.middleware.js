@@ -31,8 +31,8 @@ const isAuth = async (req, res, next) => {
 
 const isRole = (permissions) => {
   return (req, res, next) => {
-    const userRole = req.association.role;
-    if (permissions.includes(userRole)) {
+
+    if (permissions.includes(role)) {
       next();
     } else {
       return res.status(401).json("You dont have necessary permission");
