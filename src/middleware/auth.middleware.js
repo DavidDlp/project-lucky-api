@@ -32,6 +32,8 @@ const isAuth = async (req, res, next) => {
 const isRole = (permissions) => {
   return (req, res, next) => {
 
+    const role = req.association ? req.association.role : req.user ? req.user.role: undefined;
+
     if (permissions.includes(role)) {
       next();
     } else {
