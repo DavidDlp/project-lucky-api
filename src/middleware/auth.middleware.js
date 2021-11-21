@@ -45,4 +45,5 @@ const isRole = (permissions) => {
 module.exports = {
   isAuth,
   isRole,
+  isAllowed
 };
