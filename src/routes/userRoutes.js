@@ -12,16 +12,16 @@ const {
   patchFavoritePets
 } = require("../controllers/userController");
 
-userRoutes.get("/admin/", [isAuth],getAllUsers);
+userRoutes.get("/admin/", [isAuth, isRole(["admin"])],getAllUsers);
 userRoutes.delete("/admin/:id", [isAuth],delUserById);
 userRoutes.put("/admin/:id", [isAuth],putUsersById);
 
 userRoutes.post("/register",upload.single('imgAvatar'), registerNewUser);
 userRoutes.post("/login", logInUser);
-userRoutes.post("/logout", [isAuth], logOutUser);
+userRoutes.post("/logout", [isAuth,isRole(["user","admin"])], logOutUser);
 
-userRoutes.patch("/patch/:id", [isAuth, upload.single('imgAvatar')], patchUserById);
-userRoutes.patch("/newfavpet/:id", [isAuth], patchFavoritePets );
+userRoutes.patch("/patch/:id", [isAuth, upload.single('imgAvatar'),isRole(["user","admin"])], patchUserById);
+userRoutes.patch("/newfavpet/:id", [isAuth,isRole(["user","admin"])], patchFavoritePets );
 
 
 module.exports = userRoutes;
