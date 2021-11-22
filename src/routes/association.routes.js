@@ -13,16 +13,16 @@ const {
     logOutAssociation
 }= require ("../controllers/association.controllers")
 
-associationRoutes.get('/',[isAuth], getAllAssociation)
-associationRoutes.get('/:id',[isAuth], getAssociationById)
+associationRoutes.get('/',[isAuth, isRole(["association","admin"])], getAllAssociation)
+associationRoutes.get('/:id',[isAuth, isRole(["association","admin"])], getAssociationById)
 
 associationRoutes.post("/register",upload.single("imgLogo"),postNewAssociation);
 associationRoutes.post("/login", logInAssociation);
-associationRoutes.post("/logout", [isAuth], logOutAssociation);
+associationRoutes.post("/logout", [isAuth, isRole(["association","admin"])], logOutAssociation);
 
-associationRoutes.put('/:id',[isAuth], putAssociation)
-associationRoutes.patch('/newpet/:id',[isAuth], patchPetInAssociation)
-associationRoutes.delete('/:id',[isAuth], deleteAssociation)
+associationRoutes.put('/:id',[isAuth, isRole(["association","admin"])], putAssociation)
+associationRoutes.patch('/newpet/:id',[isAuth, isRole(["association","admin"])], patchPetInAssociation)
+associationRoutes.delete('/:id',[isAuth, isRole(["association","admin"])], deleteAssociation)
 
 
 module.exports = associationRoutes;

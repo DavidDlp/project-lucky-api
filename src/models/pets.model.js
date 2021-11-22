@@ -6,7 +6,7 @@ const petSchema = new mongoose.Schema(
         species: {type:String, required:true, trim:true},
         gender: {type:String, required:true, trim:true},
         birthday: {type:String,  trim:true},
-        city: {type:String,  trim:true},
+        city: {type:String, trim:true, required:true},
         imgPets:{type:String,},
         size: {type:String, trim:true},
         weight: {type:Number, trim:true},
