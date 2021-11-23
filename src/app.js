@@ -18,10 +18,10 @@ cloudinary.config({
     api_secret: process.env.API_SECRET,
 });
 
-app.use(cors());
-// origin: ['http://localhost:4000', 'http://localhost:3001'],
-// credentials: true,
-// }));
+app.use(cors({
+origin: ['*'],
+credentials: true,
+}));
 
 //MIDDLEWARES
 app.use(morgan('dev'));
