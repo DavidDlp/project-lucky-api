@@ -32,9 +32,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/user", userRoutes);
 app.use('/associations', associationRoutes);
 app.use('/pets', petsRoutes);
-app.use('/', req, res, next => {
-    res.send('Hello World')
-})
 
 
 app.use("*", (req, res, next) => {
