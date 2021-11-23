@@ -42,20 +42,20 @@ const patchFavoritePets = async (req,res,next) =>{
   }
 }//USER //ADMIN
 const patchUserById = async (req,res,next) =>{
-  try{
-    const {path} = req.file
+  try{ 
     const {id} = req.params
     const newUpdate = new User({
       _id:req.params.id,
-      name:req.body.name,
-      surname:req.body.surname,
-      DNI:req.body.DNI,
-      telephone:req.body.telephone,
-      street:req.body.street,
-      city:req.body.city,
-      pc:req.body.pc,
-      imgAvatar:path
     })
+    req.file ? newUpdate.imgAvatar=req.file.path : newUpdate
+    req.body.name !== "" ? newUpdate.name=req.body.name : newUpdate
+    req.body.surname !== "" ? newUpdate.surname=req.body.surname : newUpdate
+    req.body.DNI !== "" ? newUpdate.DNI=req.body.DNI : newUpdate
+    req.body.telephone !== "" ? newUpdate.telephone=req.body.telephone : newUpdate
+    req.body.street !== "" ? newUpdate.street = req.body.street : newUpdate
+    req.body.city !== "" ? newUpdate.city = req.body.city : newUpdate
+    req.body.pc !== "" ? newUpdate.pc = req.body.pc : newUpdate
+
     const updateProp = await User.findByIdAndUpdate({_id:id},newUpdate)
     return res.status(201).json(updateProp) 
   }catch(error){
