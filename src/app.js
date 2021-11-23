@@ -31,7 +31,7 @@ app.use(express.urlencoded({ extended: true }));
 // ROUTES
 app.use("/user", userRoutes);
 app.use('/associations', associationRoutes);
-app.use('/pets', petsRoutes);
+app.use('/pets', petsRoutes);mongoose
 
 
 app.use("*", (req, res, next) => {
