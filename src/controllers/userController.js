@@ -1,4 +1,5 @@
 const User = require("../models/userModel");
+const Pet = require("../models/pets.model");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
@@ -44,8 +45,9 @@ const patchFavoritePets = async (req,res,next) =>{
 const patchAdoptedPets = async (req,res,next) =>{
   try{
     const {id} = req.params;
+    const updatePetStatus = await Pet.findByIdAndUpdate(req.body._id,{$push:{status:req.body.status = "En proceso"}})
     const updateUserWithPet = await User.findByIdAndUpdate(id,{$push:{petsAdopted:req.body._id}})
-    return res.status(200).json(updateUserWithPet)
+    return res.status(200).json(updatePetStatus, updateUserWithPet)
   }catch(error){
     return next(error)
   }
