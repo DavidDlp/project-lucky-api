@@ -34,8 +34,17 @@ const putUsersById = async (req,res,next) =>{
 const patchFavoritePets = async (req,res,next) =>{
   try{
     const {id} = req.params;
-    const idPet = req.body.idPet;
-    const updateUserWithPet = await User.findByIdAndUpdate(id,{$push:{petsFavorite:idPet}})
+    //const idPet = req.body._id;
+    const updateUserWithPet = await User.findByIdAndUpdate(id,{$push:{petsFavorite:req.body._id}})
+    return res.status(200).json(updateUserWithPet)
+  }catch(error){
+    return next(error)
+  }
+}//USER //ADMIN
+const patchAdoptedPets = async (req,res,next) =>{
+  try{
+    const {id} = req.params;
+    const updateUserWithPet = await User.findByIdAndUpdate(id,{$push:{petsAdopted:req.body._id}})
     return res.status(200).json(updateUserWithPet)
   }catch(error){
     return next(error)
@@ -123,5 +132,6 @@ module.exports = {
   delUserById,
   putUsersById,
   patchUserById,
-  patchFavoritePets
-};
+  patchFavoritePets,
+  patchAdoptedPets
+}
