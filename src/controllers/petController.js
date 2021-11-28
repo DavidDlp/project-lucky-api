@@ -55,8 +55,8 @@ const postPet = async (req, res, next) =>{
         newPet.status = 'Disponible';
         if (req.file){newPet.imgPets = req.file.path} 
         const newPetInBd = await newPet.save();
-        const patchassociations = await Association.findByIdAndUpdate(req.association._id ,{$push:{pets:newPetInBd._id}})
-        await Pets.findByIdAndUpdate(newPetInBd._id,{$push:{association: req.association._id }}); 
+        await Pets.findByIdAndUpdate(newPetInBd.id,{association: req.body.association }); 
+        await Association.findByIdAndUpdate(req.body.association ,{$push:{pets:newPetInBd.id}})
 
         return res.status(201).json(newPetInBd)
     }catch(error){
