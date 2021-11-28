@@ -35,7 +35,6 @@ const putUsersById = async (req,res,next) =>{
 const patchFavoritePets = async (req,res,next) =>{
   try{
     const {id} = req.params;
-    //const idPet = req.body._id;
     const updateUserWithPet = await User.findByIdAndUpdate(id,{$push:{petsFavorite:req.body._id}})
     return res.status(200).json(updateUserWithPet)
   }catch(error){
@@ -45,9 +44,18 @@ const patchFavoritePets = async (req,res,next) =>{
 const patchAdoptedPets = async (req,res,next) =>{
   try{
     const {id} = req.params;
-    const updatePetStatus = await Pet.findByIdAndUpdate(req.body._id,{$push:{status:req.body.status = "En proceso"}})
-    const updateUserWithPet = await User.findByIdAndUpdate(id,{$push:{petsAdopted:req.body._id}})
-    return res.status(200).json(updatePetStatus, updateUserWithPet)
+    const findAdoptedPet =  await Pet.findById(req.body._id)
+    const findUser =  await User.findById(id);
+    if(findAdoptedPet.estado !== "Disponible"
+    || findAdoptedPet.estado !== "Rechazada"){
+      return res.status(400).json("Pet it's already in process of adoption or adopted, you are late or you were found lacking petting skills and were Rejected, shame on you!")
+    }
+    if(findUser.petsAdopted.includes(findAdoptedPet.id)){
+      return res.status(400).json("You already initiated adoption process for this pet or you were found lacking petting skills and were Rejected, shame on you!")
+    }
+    await Pet.findByIdAndUpdate(req.body._id,{estado:req.body.estado = "En proceso"})
+    await User.findByIdAndUpdate(id,{$push:{petsAdopted:req.body._id}})
+    return res.status(202).json("Adoption process initiated")
   }catch(error){
     return next(error)
   }
