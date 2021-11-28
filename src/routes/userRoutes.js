@@ -9,7 +9,8 @@ const {
   delUserById,
   putUsersById,
   patchUserById,
-  patchFavoritePets
+  patchFavoritePets,
+  patchAdoptedPets
 } = require("../controllers/userController");
 
 userRoutes.get("/admin/", [isAuth, isRole(["admin"])],getAllUsers);
@@ -22,6 +23,7 @@ userRoutes.post("/logout", [isAuth,isRole(["user","admin"])], logOutUser);
 
 userRoutes.patch("/patch/:id", [isAuth, upload.single('imgAvatar'),isRole(["user","admin"])], patchUserById);
 userRoutes.patch("/newfavpet/:id", [isAuth,isRole(["user","admin"])], patchFavoritePets );
+userRoutes.patch("/newadoptedpet/:id", [isAuth,isRole(["user","admin"])], patchAdoptedPets );
 
 
 module.exports = userRoutes;

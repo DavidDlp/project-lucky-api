@@ -1,4 +1,5 @@
 const User = require("../models/userModel");
+const Pet = require("../models/pets.model");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
@@ -34,9 +35,33 @@ const putUsersById = async (req,res,next) =>{
 const patchFavoritePets = async (req,res,next) =>{
   try{
     const {id} = req.params;
-    const idPet = req.body.idPet;
-    const updateUserWithPet = await User.findByIdAndUpdate(id,{$push:{petsFavorite:idPet}})
+    const findAdoptedPet =  await Pet.findById(req.body._id)
+    const findUser =  await User.findById(id)
+
+    if(findUser.petsFavorite.includes(findAdoptedPet.id)){
+      return res.status(400).json("Pet it's already in your favorite list")
+    }
+    
+    const updateUserWithPet = await User.findByIdAndUpdate(id,{$push:{petsFavorite:req.body._id}})
     return res.status(200).json(updateUserWithPet)
+  }catch(error){
+    return next(error)
+  }
+}//USER //ADMIN
+const patchAdoptedPets = async (req,res,next) =>{
+  try{
+    const {id} = req.params;
+    const findAdoptedPet =  await Pet.findById(req.body._id)
+    const findUser =  await User.findById(id);
+    if(findAdoptedPet.estado !== "Disponible"){
+      return res.status(400).json("Pet it's already on a process of adoption")
+    }
+    if(findUser.petsAdopted.includes(findAdoptedPet.id)){
+      return res.status(400).json("You already initiated adoption process for this pet")
+    }
+    await Pet.findByIdAndUpdate(req.body._id,{estado:req.body.estado = "En proceso"})
+    await User.findByIdAndUpdate(id,{$push:{petsAdopted:req.body._id}})
+    return res.status(202).json("Adoption process initiated")
   }catch(error){
     return next(error)
   }
@@ -123,5 +148,6 @@ module.exports = {
   delUserById,
   putUsersById,
   patchUserById,
-  patchFavoritePets
-};
+  patchFavoritePets,
+  patchAdoptedPets
+}

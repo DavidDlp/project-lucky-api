@@ -1,6 +1,7 @@
 const Association =require('../models/association.model');
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const Pet = require('../models/pets.model');
 
 /*GET*/
 const getAllAssociation = async (req, res, next) => {
@@ -11,7 +12,6 @@ const getAllAssociation = async (req, res, next) => {
         return next(error);
     }
 };
-
 /*GETBYID*/
 const getAssociationById = async (req, res, next) => {
     try {
@@ -87,7 +87,7 @@ const putAssociation = async (req, res, next) => {
     }
   };
   /*PATCH*/
-  const patchPetInAssociation = async (req, res, next) =>{
+const patchPetInAssociation = async (req, res, next) =>{
     try{
         const {id} = req.params;
         const idPet = req.body.idPet;
@@ -98,7 +98,7 @@ const putAssociation = async (req, res, next) => {
         return next(error)
     }
 };
-  
+
   /*DELETE */
 const deleteAssociation = async (req, res, next) => {
     try {
@@ -110,6 +110,25 @@ const deleteAssociation = async (req, res, next) => {
     }
   };
 
+
+
+const patchAceptAdoption = async (req,res,next) => {
+  try{
+    await Pet.findByIdAndUpdate(req.body._id,{estado:req.body.estado = "Aceptada"});
+    return res.status(200).json("Status changed");
+  }catch(error){
+    return next(error);
+  }
+}
+const patchRejectAdoption = async (req,res,next) => {
+  try{
+    await Pet.findByIdAndUpdate(req.body._id,{estado:req.body.estado = "Rechazada"});
+    return res.status(200).json("Status changed");
+  }catch(error){
+    return next(error);
+  }
+}
+
 module.exports ={
     getAllAssociation,
     getAssociationById,
@@ -118,7 +137,9 @@ module.exports ={
     deleteAssociation,
     patchPetInAssociation,
     logInAssociation,
-    logOutAssociation
+    logOutAssociation,
+    patchAceptAdoption,
+    patchRejectAdoption
 };
 
 

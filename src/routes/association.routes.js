@@ -10,7 +10,9 @@ const {
     deleteAssociation,
     patchPetInAssociation,
     logInAssociation,
-    logOutAssociation
+    logOutAssociation,
+    patchAceptAdoption,
+    patchRejectAdoption
 }= require ("../controllers/association.controllers")
 
 associationRoutes.get('/',[isAuth, isRole(["association","admin"])], getAllAssociation)
@@ -24,6 +26,8 @@ associationRoutes.put('/:id',[isAuth, isRole(["association","admin"])], putAssoc
 associationRoutes.patch('/newpet/:id',[isAuth, isRole(["association","admin"])], patchPetInAssociation)
 associationRoutes.delete('/:id',[isAuth, isRole(["association","admin"])], deleteAssociation)
 
+associationRoutes.patch('/adoptionaccept/:id',[isAuth, isRole(["association","admin"])], patchAceptAdoption)
+associationRoutes.patch('/adoptionreject/:id',[isAuth, isRole(["association","admin"])], patchRejectAdoption)
 
 module.exports = associationRoutes;
 
