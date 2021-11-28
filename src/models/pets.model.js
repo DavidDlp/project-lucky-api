@@ -13,6 +13,8 @@ const petSchema = new mongoose.Schema(
         personality: [{type:String, trim:true}],
         history: {type:String, trim:true},
         association: {type:mongoose.Types.ObjectId, ref:'associations'},
+        status:{type:String, enum:["En proceso","Aceptada","Rechazada","Disponible"],
+        default:"Disponible"},
         record: {
             vaccinated: {type:Boolean, required:true},
             dewormed: {type:Boolean,},

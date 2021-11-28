@@ -52,6 +52,7 @@ const getPetByGender = async (req,res,next) =>{
 const postPet = async (req, res, next) =>{
     try{
         const newPet = new Pets(req.body);
+        newPet.status = 'Disponible';
         if (req.file){newPet.imgPets = req.file.path} 
         const newPetInBd = await newPet.save();
         const patchassociations = await Association.findByIdAndUpdate(req.association._id ,{$push:{pets:newPetInBd._id}})
