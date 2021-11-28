@@ -18,8 +18,9 @@ cloudinary.config({
     api_secret: process.env.API_SECRET,
 });
 
+
 app.use(cors({
-origin: ['http://localhost:3000', 'http://localhost:3001'],
+origin: '*',
 credentials: true,
 }));
 
@@ -31,7 +32,7 @@ app.use(express.urlencoded({ extended: true }));
 // ROUTES
 app.use("/user", userRoutes);
 app.use('/associations', associationRoutes);
-app.use('/pets', petsRoutes);
+app.use('/pets', petsRoutes);mongoose
 
 
 app.use("*", (req, res, next) => {
