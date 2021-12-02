@@ -18,7 +18,7 @@ petsRoutes.get('/gender/:gender', getPetByGender);
 petsRoutes.get('/city/:city', getPetByCity);
 
 //POST
-petsRoutes.post('/', [upload.single('imgPets')], postPet);
+petsRoutes.post('/addpet', [upload.single('imgPets')], postPet);
 
 //PUT y/o PATCH
 petsRoutes.put('/:id', putPet);
