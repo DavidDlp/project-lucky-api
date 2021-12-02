@@ -11,6 +11,17 @@ const getAllUsers = async (req, res, next) => {
     return next(error);
   }
 };
+
+const getUserById = async (req,res,next) =>{
+  try{
+      const {id} = req.params;
+      const findUser = await User.findById(id);
+      return res.status(200).json(findUser);
+  }catch(error){
+      return next(error)
+  }
+};
+
  //ADMIN
 const delUserById = async (req,res,next) =>{
   try{
@@ -47,7 +58,21 @@ const patchFavoritePets = async (req,res,next) =>{
   }catch(error){
     return next(error)
   }
-}//USER //ADMIN
+
+}
+
+const deleteFavoritePet = async (req,res,next) =>{
+  try{
+      const {id} = req.params;
+      const deletedPet = await User.findByIdAndDelete(id);
+      return res.status(200).json(deletedPet)
+
+  }catch(error){
+      return next(error)
+  }
+}
+
+//USER //ADMIN
 const patchAdoptedPets = async (req,res,next) =>{
   try{
     const {id} = req.params;
@@ -142,6 +167,7 @@ const logOutUser = (req, res, next) => {
 
 module.exports = {
   getAllUsers,
+  getUserById,
   registerNewUser,
   logInUser,
   logOutUser,
@@ -149,5 +175,6 @@ module.exports = {
   putUsersById,
   patchUserById,
   patchFavoritePets,
+  deleteFavoritePet,
   patchAdoptedPets
 }
