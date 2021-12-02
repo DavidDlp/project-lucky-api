@@ -15,12 +15,12 @@ const petSchema = new mongoose.Schema(
         association: {type:mongoose.Types.ObjectId, ref:'associations'},
         estado:{type:String, enum:["En proceso","Aceptada","Rechazada","Disponible"],default:"Disponible"},
         record: {
-            vaccinated: {type:Boolean, required:true},
+            vaccinated: {type:Boolean,},
             dewormed: {type:Boolean,},
             healthy: {type:Boolean,},
             sterilized: {type:Boolean,},
             identified: {type:Boolean,},
-            microchip: {type:Boolean, required:true},
+            microchip: {type:Boolean,},
             other: {type:String,}
         },
         
